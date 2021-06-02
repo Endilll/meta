@@ -8213,6 +8213,17 @@ static bool Dump(EvalInfo &Info, const Expr *PE, const APValue& EV) {
       }
     }
 
+    case RK_fragment: {
+      const Expr *E = EV.getFragmentExpr();
+      if (const DeclRefExpr *DRE = dyn_cast<DeclRefExpr>(E)) {
+        DRE->getDecl()->dump();
+        return true;
+      } else {
+        E->dump();
+        return true;
+      }
+    }
+
     default:
       break;
     }
